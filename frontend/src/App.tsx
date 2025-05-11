@@ -5,8 +5,7 @@ import { useState, useEffect } from "react";
 function App() {
 
   useEffect(() => {
-    // This is where you can add any side effects or data fetching
-    // For example, you can fetch data from an API or perform some initialization
+    // check for .env wiring
     console.log(import.meta.env.VITE_API_URL);
   }, []);
 
