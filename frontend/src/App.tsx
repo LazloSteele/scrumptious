@@ -1,6 +1,6 @@
 // src/App.tsx
 import { Container, Typography } from "@mui/material";
-import Ingredients from "./components/ingredients";
+import Ingredients from "./components/Ingredients";
 
 function App() {
 
