@@ -30,4 +30,4 @@ class AffinityViewSet(viewsets.ModelViewSet):
         if self.action in ["create", "update", "partial_update"]:
             return AffinityWriteSerializer
     
-    serializer_class = AffinityReadSerializer
+        return AffinityReadSerializer
