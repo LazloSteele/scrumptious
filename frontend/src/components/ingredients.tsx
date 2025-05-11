@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Box, Grid } from "@mui/material";
+import { Box } from "@mui/material";
+import Grid from "@mui/material/Grid";
 import type { Ingredient } from "./types";
 import IngredientCard from "./IngredientCard";
 
