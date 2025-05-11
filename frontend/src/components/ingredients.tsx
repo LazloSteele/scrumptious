@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Box } from "@mui/material";
-import Grid from "@mui/material/Grid";
-import type { Ingredient } from "./types";
+import { Box, Grid } from "@mui/material";
 import IngredientCard from "./IngredientCard";
+import type { Ingredient } from "./types";
 
 const Ingredients: React.FC = () => {
     const [ingredients, setIngredients] = useState<Ingredient[]>([]);
@@ -27,8 +26,8 @@ const Ingredients: React.FC = () => {
     return (
         <Box sx={{ padding: 4 }}>
           <Grid container spacing={2} justifyContent="center">
-            {ingredients.map(ingredient => (
-              <Grid item key={ingredient.id}>
+            {ingredients.map((ingredient) => (
+              <Grid key={ingredient.id}>
                 <IngredientCard name={ingredient.name} />
               </Grid>
             ))}
