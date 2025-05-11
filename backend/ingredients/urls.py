@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import *
+from .views import home, IngredientList, IngredientDetail, AffinityList, AffinityDetail
 
 urlpatterns = [
     # Define your URL patterns here
