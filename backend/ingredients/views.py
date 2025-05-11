@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Ingredient, Affinity
-from .serializers import IngredientSerializer, AffinityWriteSerializer, AffinityReadSerializer
+from .serializers import (
+    IngredientSerializer,
+    AffinityWriteSerializer,
+    AffinityReadSerializer,
+)
 from rest_framework import viewsets
 
 
@@ -29,5 +33,5 @@ class AffinityViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action in ["create", "update", "partial_update"]:
             return AffinityWriteSerializer
-    
+
         return AffinityReadSerializer

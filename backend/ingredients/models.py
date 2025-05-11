@@ -5,7 +5,10 @@ from django.db import models
 class Ingredient(models.Model):
     name = models.CharField(max_length=255)
     affinities = models.ManyToManyField(
-        "self", through="Affinity", symmetrical=False, related_name="related_ingredients"
+        "self",
+        through="Affinity",
+        symmetrical=False,
+        related_name="related_ingredients",
     )
 
     def __str__(self):
@@ -27,7 +30,7 @@ class Affinity(models.Model):
     def save(self, *args, **kwargs):
         if self.ingredient1 == self.ingredient2:
             raise ValueError("An ingredient cannot be related to itself.")
-        
+
         super().save(*args, **kwargs)
 
         # Create the reverse relationship if it doesn't exist

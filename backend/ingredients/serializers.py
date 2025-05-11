@@ -12,11 +12,14 @@ class AffinityWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Affinity
         fields = ["id", "ingredient1", "ingredient2"]
-    
+
     def validate(self, data):
-        if data['ingredient1'] == data['ingredient2']:
-            raise serializers.ValidationError("An ingredient cannot be related to itself.")
+        if data["ingredient1"] == data["ingredient2"]:
+            raise serializers.ValidationError(
+                "An ingredient cannot be related to itself."
+            )
         return data
+
 
 class AffinityReadSerializer(serializers.ModelSerializer):
     ingredient1 = IngredientSerializer(read_only=True)
