@@ -1,0 +1,23 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "django>=5.2.1",
+    "django-cors-headers>=4.7.0",
+    "django-extensions>=4.1",
+    "djangorestframework>=3.16.0",
+    "psycopg[binary]>=3.2.7",
+]
+
+[dependency-groups]
+dev = [
+    "django-debug-toolbar>=5.2.0",
+    "ruff>=0.11.9",
+]
+prod = [
+    "uvicorn>=0.34.2",
+    "whitenoise>=6.9.0",
+]
