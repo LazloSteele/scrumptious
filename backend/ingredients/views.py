@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Ingredient, Affinity
 from .serializers import IngredientSerializer, AffinitySerializer
+from rest_framework import generics
 
 
 # Create your views here.
