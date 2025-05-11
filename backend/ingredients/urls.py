@@ -1,5 +1,10 @@
 from django.urls import path
+from rest_framework.routers import DefaultRouter
 from .views import home, IngredientList, IngredientDetail, AffinityList, AffinityDetail
+
+router = DefaultRouter()
+router.register(r"ingredients", IngredientList, basename="ingredient")
+router.register(r"affinities", AffinityList, basename="affinity")
 
 urlpatterns = [
     # Define your URL patterns here
