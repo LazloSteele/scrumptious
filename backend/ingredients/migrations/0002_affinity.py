@@ -5,18 +5,39 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('ingredients', '0001_initial'),
+        ("ingredients", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Affinity',
+            name="Affinity",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('ingredient1', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='ingredient1', to='ingredients.ingredient')),
-                ('ingredient2', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='ingredient2', to='ingredients.ingredient')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "ingredient1",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="ingredient1",
+                        to="ingredients.ingredient",
+                    ),
+                ),
+                (
+                    "ingredient2",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="ingredient2",
+                        to="ingredients.ingredient",
+                    ),
+                ),
             ],
         ),
     ]
