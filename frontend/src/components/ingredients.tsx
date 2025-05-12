@@ -6,6 +6,20 @@ import type { Ingredient } from "./types";
 
 const Ingredients: React.FC = () => {
     const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+
+    const handleSearch = async (query: string) => {
+        // Implement search functionality here
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/ingredients?search=${query}`);
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            const data = await response.json();
+            setIngredients(data);
+        } catch (error) {
+            console.error("Error fetching ingredients:", error);
+        }
+    };
     
     useEffect(() => {
         async function fetchIngredients() {
@@ -26,7 +40,7 @@ const Ingredients: React.FC = () => {
     
     return (
         <Box sx={{ padding: 4 }}>
-          <SearchBar onSearch={(query) => console.log(query)} />
+          <SearchBar onSearch={handleSearch} />
 
           <Grid container spacing={2} justifyContent="center">
             {ingredients.map((ingredient) => (
