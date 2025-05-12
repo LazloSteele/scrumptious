@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextField, InputAdornment, Input } from "@mui/material";
+import { TextField, InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 interface SearchBarProps {
