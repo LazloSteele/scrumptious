@@ -1,7 +1,6 @@
 // src/App.tsx
 import { Typography, Paper } from "@mui/material";
 import Ingredients from "./components/ingredients";
-import SearchBar from "./components/SearchBar";
 
 function App() {
 
@@ -10,8 +9,6 @@ function App() {
       <Typography variant="h4" gutterBottom align="center">
         Hello Scrumptious!
       </Typography>
-
-      <SearchBar onSearch={(query) => console.log(query)} />
 
       <Ingredients />
     </Paper>

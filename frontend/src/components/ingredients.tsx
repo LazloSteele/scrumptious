@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Grid } from "@mui/material";
 import IngredientCard from "./IngredientCard";
+import SearchBar from "./SearchBar";
 import type { Ingredient } from "./types";
 
 const Ingredients: React.FC = () => {
@@ -25,6 +26,8 @@ const Ingredients: React.FC = () => {
     
     return (
         <Box sx={{ padding: 4 }}>
+          <SearchBar onSearch={(query) => console.log(query)} />
+
           <Grid container spacing={2} justifyContent="center">
             {ingredients.map((ingredient) => (
               <Grid key={ingredient.id}>
