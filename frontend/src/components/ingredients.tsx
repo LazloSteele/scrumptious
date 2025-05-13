@@ -41,15 +41,13 @@ const Ingredients: React.FC = () => {
     return (
         <Box sx={{ 
             padding: 4,
-            width: "100%",
-            flexGrow: 1,
-            flexShrink: 0,
+            minWidth: "100%",
             boxSizing: "border-box"
           }}
         >
           <SearchBar onSearch={handleSearch} />
 
-          <Grid container spacing={2} justifyContent="flex-start" sx={{ width: "100%", marginTop: 2, flexWrap: "wrap" }}>
+          <Grid container spacing={2} justifyContent="flex-start" sx={{ width: "100%", marginTop: 2, flexShrink: 0 }}>
             {ingredients.map((ingredient) => (
               <Grid key={ingredient.id}>
                 <IngredientCard name={ingredient.name} />

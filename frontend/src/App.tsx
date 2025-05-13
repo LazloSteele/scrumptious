@@ -1,5 +1,5 @@
 // src/App.tsx
-import { Typography, Paper, Container } from "@mui/material";
+import { Typography, Container } from "@mui/material";
 import Ingredients from "./components/ingredients";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
       sx={{
         padding: 4,
         margin: 0, 
-        width: "100%",
+        width: "100vw",
         boxSizing: "border-box" 
         }}
     >
