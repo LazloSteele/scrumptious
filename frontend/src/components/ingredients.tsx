@@ -72,10 +72,10 @@ const Ingredients: React.FC = () => {
                 return await res.json();
               })
             );
-            // Combine and set
-            setIngredients([...fetchMissingIngredients, ...data]);
+            // Combine and set alphabetically
+            setIngredients([...fetchMissingIngredients, ...data].sort((a, b) => a.name.localeCompare(b.name)));
           } else {
-            setIngredients(data);
+            setIngredients(data.sort((a, b) => a.name.localeCompare(b.name)));
           }
         } catch (error) {
           console.error("Error fetching ingredients:", error);
