@@ -37,6 +37,20 @@ const Ingredients: React.FC = () => {
     
         fetchIngredients();
     }, []);
+
+    const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+
+    const toggleSelect = (id: number) => {
+      setSelectedIds(prev => {
+        const newSet = new Set(prev);
+        if (newSet.has(id)) {
+          newSet.delete(id);
+        } else {
+          newSet.add(id);
+        }
+        return newSet;
+      });
+    };
     
     return (
         <Box sx={{ 
@@ -50,7 +64,11 @@ const Ingredients: React.FC = () => {
           <Grid container spacing={2} justifyContent="flex-start" sx={{ width: "100%", marginTop: 2, flexShrink: 0 }}>
             {ingredients.map((ingredient) => (
               <Grid key={ingredient.id}>
-                <IngredientCard name={ingredient.name} />
+                <IngredientCard
+                  name={ingredient.name}
+                  selected={selectedIds.has(ingredient.id)}
+                  onClick={() => toggleSelect(ingredient.id)}
+                />
               </Grid>
             ))}
           </Grid>
