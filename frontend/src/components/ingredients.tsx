@@ -27,25 +27,6 @@ const Ingredients: React.FC = () => {
         }
     };
     
-    // Fetch all ingredients from the API when the component mounts
-    // and set the ingredients state with the response data
-    useEffect(() => {
-        async function fetchIngredients() {
-        try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/ingredients`);
-            if (!response.ok) {
-            throw new Error("Network response was not ok");
-            }
-            const data = await response.json();
-            setIngredients(data);
-        } catch (error) {
-            console.error("Error fetching ingredients:", error);
-        }
-        }
-    
-        fetchIngredients();
-    }, []);
-
     // Toggles the selection state of an ingredient based on its ID
     // If the ingredient is already selected, it removes it from the selectedIds set
     const toggleSelect = (id: number) => {
@@ -59,6 +40,8 @@ const Ingredients: React.FC = () => {
     useEffect(() => {
       const fetchIngredientsByAffinity = async () => {
         try {
+          // Construct the URL based on selectedIds
+          // If selectedIds is empty, fetch all ingredients
           const affinityQuery = selectedIds.join(",");
           const url = selectedIds.length > 0
             ? `${import.meta.env.VITE_API_URL}/ingredients?affinityTo=${affinityQuery}`
@@ -67,8 +50,33 @@ const Ingredients: React.FC = () => {
           const response = await fetch(url);
           if (!response.ok) throw new Error("Network response was not ok");
 
-          const data = await response.json();
-          setIngredients(data);
+          // Parse the response data
+          // and update the ingredients state
+          const data: Ingredient[] = await response.json();
+
+          if (selectedIds.length > 0) {
+            // Fetch full details of selected ingredients if needed
+            // (Assuming you already have the full Ingredient objects of selected items locally,
+            // otherwise you might need to fetch them individually or from a cache)
+
+            // Here: filter out selected ingredients that are already included in data
+            const missingSelectedIds = selectedIds.filter(
+              (id) => !data.some((ingredient) => ingredient.id === id)
+            );
+
+            // Fetch full objects for those missing selected ingredients
+            const fetchMissingIngredients = await Promise.all(
+              missingSelectedIds.map(async (id) => {
+                const res = await fetch(`${import.meta.env.VITE_API_URL}/ingredients/${id}`);
+                if (!res.ok) throw new Error(`Failed to fetch ingredient ${id}`);
+                return await res.json();
+              })
+            );
+            // Combine and set
+            setIngredients([...fetchMissingIngredients, ...data]);
+          } else {
+            setIngredients(data);
+          }
         } catch (error) {
           console.error("Error fetching ingredients:", error);
         }
