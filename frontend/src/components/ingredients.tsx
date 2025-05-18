@@ -94,7 +94,7 @@ const Ingredients: React.FC = () => {
         >
           <SearchBar onSearch={handleSearch} />
 
-          <Grid container spacing={2} justifyContent="flex-start" sx={{ width: "100%", marginTop: 2, flexShrink: 0 }}>
+          <Grid container spacing={2} sx={{ width: "100%", marginTop: 2, flexShrink: 0 }}>
             {ingredients.map((ingredient) => (
               <Grid key={ingredient.id}>
                 <IngredientCard
