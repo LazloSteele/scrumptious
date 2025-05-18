@@ -25,6 +25,22 @@ class IngredientViewSet(viewsets.ModelViewSet):
     filter_backends = [SearchFilter]
     search_fields = ["name"]
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        affinity_param = self.request.query_params.get("affinityTo")
+
+        if affinity_param:
+            try:
+                ids = [int(i) for i in affinity_param.split(",") if i.strip().isdigit()]
+                if ids:
+                    # Example logic: return ingredients that share tags or categories with selected ones
+                    # You should replace this with your actual affinity logic
+                    queryset = queryset.filter(related_ingredients__id__in=ids).distinct()
+            except ValueError:
+                pass  # Fall back to unfiltered if there's an error
+
+        return queryset
+
 
 class AffinityViewSet(viewsets.ModelViewSet):
     """
