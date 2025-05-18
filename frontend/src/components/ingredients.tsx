@@ -13,7 +13,10 @@ const Ingredients: React.FC = () => {
     const handleSearch = async (query: string) => {
         // If the query is empty, fetch all ingredients
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/ingredients?search=${query}`);
+            // Construct affinity query param from selectedIds state
+            const affinityParam = selectedIds.length > 0 ? `&affinityTo=${selectedIds.join(",")}` : "";
+
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/ingredients?search=${query}${affinityParam}`);
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
@@ -71,8 +74,8 @@ const Ingredients: React.FC = () => {
         }
       };
 
-  fetchIngredientsByAffinity();
-}, [selectedIds]);
+      fetchIngredientsByAffinity();
+      }, [selectedIds]);
     
     return (
         <Box sx={{ 
