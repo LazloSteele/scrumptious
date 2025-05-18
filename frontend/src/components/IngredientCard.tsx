@@ -1,6 +1,5 @@
 // src/components/IngredientCard.tsx
 import React from 'react';
-import { useState } from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
 
 interface IngredientCardProps {

@@ -6,9 +6,12 @@ import type { Ingredient } from "./types";
 
 const Ingredients: React.FC = () => {
     const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+    const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
+    // Handles the search functionality by fetching ingredients from the API
+    // based on the search query. If the query is empty, it fetches all ingredients.
     const handleSearch = async (query: string) => {
-        // Implement search functionality here
+        // If the query is empty, fetch all ingredients
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/ingredients?search=${query}`);
             if (!response.ok) {
@@ -21,6 +24,8 @@ const Ingredients: React.FC = () => {
         }
     };
     
+    // Fetch all ingredients from the API when the component mounts
+    // and set the ingredients state with the response data
     useEffect(() => {
         async function fetchIngredients() {
         try {
@@ -38,19 +43,36 @@ const Ingredients: React.FC = () => {
         fetchIngredients();
     }, []);
 
-    const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
-
+    // Toggles the selection state of an ingredient based on its ID
+    // If the ingredient is already selected, it removes it from the selectedIds set
     const toggleSelect = (id: number) => {
-      setSelectedIds(prev => {
-        const newSet = new Set(prev);
-        if (newSet.has(id)) {
-          newSet.delete(id);
-        } else {
-          newSet.add(id);
-        }
-        return newSet;
-      });
+      setSelectedIds((prev) =>
+        prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+      );
     };
+
+    // Fetches ingredients based on the affinity to selected IDs when the selectedIds state changes
+    // If no IDs are selected, it fetches all ingredients
+    useEffect(() => {
+      const fetchIngredientsByAffinity = async () => {
+        try {
+          const affinityQuery = selectedIds.join(",");
+          const url = selectedIds.length > 0
+            ? `${import.meta.env.VITE_API_URL}/ingredients?affinityTo=${affinityQuery}`
+            : `${import.meta.env.VITE_API_URL}/ingredients`;
+
+          const response = await fetch(url);
+          if (!response.ok) throw new Error("Network response was not ok");
+
+          const data = await response.json();
+          setIngredients(data);
+        } catch (error) {
+          console.error("Error fetching ingredients:", error);
+        }
+      };
+
+  fetchIngredientsByAffinity();
+}, [selectedIds]);
     
     return (
         <Box sx={{ 
@@ -66,7 +88,7 @@ const Ingredients: React.FC = () => {
               <Grid key={ingredient.id}>
                 <IngredientCard
                   name={ingredient.name}
-                  selected={selectedIds.has(ingredient.id)}
+                  selected={selectedIds.includes(ingredient.id)}
                   onClick={() => toggleSelect(ingredient.id)}
                 />
               </Grid>
